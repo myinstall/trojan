@@ -15,7 +15,7 @@ var (
 // webCmd represents the web command
 var webCmd = &cobra.Command{
 	Use:   "web",
-	Short: "以web方式启动",
+	Short: "以w方式启动",
 	Run: func(cmd *cobra.Command, args []string) {
 		web.Start(host, port, timeout, ssl)
 	},
