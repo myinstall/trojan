@@ -1,6 +1,5 @@
 #!/bin/bash
-# Author: Jrohy
-# github: https://github.com/Jrohy/trojan
+
 
 #定义操作变量, 0为否, 1为是
 HELP=0
