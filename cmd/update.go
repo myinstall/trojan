@@ -8,8 +8,8 @@ import (
 // upgradeCmd represents the update command
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "更新trojan",
-	Long:  "可添加版本号更新特定版本, 比如'trojan update v0.10.0', 不添加版本号则安装最新版",
+	Short: "更新（勿用）",
+	Long:  "请勿更新，慎用",
 	Args:  cobra.MaximumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		version := ""
