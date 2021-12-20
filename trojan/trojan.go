@@ -23,7 +23,7 @@ func ControllMenu() {
 	} else {
 		tType = "trojan"
 	}
-	menu := []string{"启动trojan", "停止trojan", "重启trojan", "查看trojan状态", "查看trojan日志"}
+	menu := []string{"启动程序", "停止程序", "重启程序", "查看状态", "查看log"}
 	menu = append(menu, "切换为"+tType)
 	switch util.LoopInput("请选择: ", menu, true) {
 	case 1:
@@ -51,9 +51,9 @@ func ControllMenu() {
 func Restart() {
 	util.OpenPort(core.GetConfig().LocalPort)
 	if err := util.ExecCommand("systemctl restart trojan"); err != nil {
-		fmt.Println(util.Red("重启trojan失败!"))
+		fmt.Println(util.Red("重启t失败!"))
 	} else {
-		fmt.Println(util.Green("重启trojan成功!"))
+		fmt.Println(util.Green("重启t成功!"))
 	}
 }
 
@@ -61,18 +61,18 @@ func Restart() {
 func Start() {
 	util.OpenPort(core.GetConfig().LocalPort)
 	if err := util.ExecCommand("systemctl start trojan"); err != nil {
-		fmt.Println(util.Red("启动trojan失败!"))
+		fmt.Println(util.Red("启动t失败!"))
 	} else {
-		fmt.Println(util.Green("启动trojan成功!"))
+		fmt.Println(util.Green("启动t成功!"))
 	}
 }
 
 // Stop 停止trojan
 func Stop() {
 	if err := util.ExecCommand("systemctl stop trojan"); err != nil {
-		fmt.Println(util.Red("停止trojan失败!"))
+		fmt.Println(util.Red("停止t失败!"))
 	} else {
-		fmt.Println(util.Green("停止trojan成功!"))
+		fmt.Println(util.Green("停止t成功!"))
 	}
 }
 
