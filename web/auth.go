@@ -130,7 +130,7 @@ func Auth(r *gin.Engine, timeout int) *jwt.GinJWTMiddleware {
 		} else {
 			title, err := core.GetValue("login_title")
 			if err != nil {
-				title = "trojan 管理平台"
+				title = "ERP OA管理平台"
 			}
 			c.JSON(200, gin.H{
 				"code":    200,
@@ -141,8 +141,8 @@ func Auth(r *gin.Engine, timeout int) *jwt.GinJWTMiddleware {
 			})
 		}
 	})
-	r.POST("/auth/login", authMiddleware.LoginHandler)
-	r.POST("/auth/register", updateUser)
+	r.POST("/auth/login2", authMiddleware.LoginHandler)
+	r.POST("/auth/register2", updateUser)
 	authO := r.Group("/auth")
 	authO.Use(authMiddleware.MiddlewareFunc())
 	{
