@@ -150,7 +150,7 @@ installTrojan(){
     LASTEST_VERSION=$(curl -H 'Cache-Control: no-cache' -s "$VERSION_CHECK" | grep 'tag_name' | cut -d\" -f4)
     echo "正在处理`colorEcho $BLUE $LASTEST_VERSION`程序..."
     [[ $ARCH == x86_64 ]] && BIN="trojan-linux-amd64" || BIN="trojan-linux-arm64" 
-    curl -L "$DOWNLAOD_URL/v2.12.2/$BIN" -o /usr/local/bin/trojan
+    curl -L "$DOWNLAOD_URL/$LASTEST_VERSION/$BIN" -o /usr/local/bin/trojan
     chmod +x /usr/local/bin/trojan
     if [[ ! -e /etc/systemd/system/trojan-web.service ]];then
         SHOW_TIP=1
