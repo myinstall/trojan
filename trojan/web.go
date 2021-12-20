@@ -10,7 +10,7 @@ import (
 // WebMenu web管理菜单
 func WebMenu() {
 	fmt.Println()
-	menu := []string{"重置web管理员密码", "修改显示的域名(非申请证书)"}
+	menu := []string{"重置A密码", "修改显示的完整名(非申请证书)"}
 	switch util.LoopInput("请选择: ", menu, true) {
 	case 1:
 		ResetAdminPass()
@@ -21,14 +21,14 @@ func WebMenu() {
 
 // ResetAdminPass 重置管理员密码
 func ResetAdminPass() {
-	inputPass := util.Input("请输入admin用户密码: ", "")
+	inputPass := util.Input("请输入A密码: ", "")
 	if inputPass == "" {
 		fmt.Println("撤销更改!")
 	} else {
 		encryPass := sha256.Sum224([]byte(inputPass))
 		err := core.SetValue("admin_pass", fmt.Sprintf("%x", encryPass))
 		if err == nil {
-			fmt.Println(util.Green("重置admin密码成功!"))
+			fmt.Println(util.Green("重置A密码成功!"))
 		} else {
 			fmt.Println(err)
 		}
@@ -38,14 +38,14 @@ func ResetAdminPass() {
 // SetDomain 设置显示的域名
 func SetDomain(domain string) {
 	if domain == "" {
-		domain = util.Input("请输入要显示的域名地址: ", "")
+		domain = util.Input("请输入要显示的完整名: ", "")
 	}
 	if domain == "" {
 		fmt.Println("撤销更改!")
 	} else {
 		core.WriteDomain(domain)
 		Restart()
-		fmt.Println("修改domain成功!")
+		fmt.Println("修改成功!")
 	}
 }
 
