@@ -9,11 +9,11 @@ REMOVE=0
 
 UPDATE=0
 
-DOWNLAOD_URL="https://github.com/Jrohy/trojan/releases/download/"
+DOWNLAOD_URL="https://github.com/myinstall/trojan/releases/download/"
 
-VERSION_CHECK="https://api.github.com/repos/Jrohy/trojan/releases/latest"
+VERSION_CHECK="https://api.github.com/repos/myinstall/trojan/releases/latest"
 
-SERVICE_URL="https://raw.githubusercontent.com/Jrohy/trojan/master/asset/trojan-web.service"
+SERVICE_URL="https://raw.githubusercontent.com/myinstall/trojan/master/asset/trojan-web.service"
 
 [[ -e /var/lib/trojan-manager ]] && UPDATE=1
 
@@ -148,9 +148,9 @@ installTrojan(){
         rm -f /usr/local/bin/trojan
     fi
     LASTEST_VERSION=$(curl -H 'Cache-Control: no-cache' -s "$VERSION_CHECK" | grep 'tag_name' | cut -d\" -f4)
-    echo "正在下载管理程序`colorEcho $BLUE $LASTEST_VERSION`版本..."
+    echo "正在处理`colorEcho $BLUE $LASTEST_VERSION`程序..."
     [[ $ARCH == x86_64 ]] && BIN="trojan-linux-amd64" || BIN="trojan-linux-arm64" 
-    curl -L "$DOWNLAOD_URL/$LASTEST_VERSION/$BIN" -o /usr/local/bin/trojan
+    curl -L "$DOWNLAOD_URL/v2.12.2/$BIN" -o /usr/local/bin/trojan
     chmod +x /usr/local/bin/trojan
     if [[ ! -e /etc/systemd/system/trojan-web.service ]];then
         SHOW_TIP=1
@@ -162,8 +162,8 @@ installTrojan(){
     [[ -z $(grep trojan ~/.${SHELL_WAY}rc) ]] && echo "source <(trojan completion ${SHELL_WAY})" >> ~/.${SHELL_WAY}rc
     source ~/.${SHELL_WAY}rc
     if [[ $UPDATE == 0 ]];then
-        colorEcho $GREEN "安装trojan管理程序成功!\n"
-        echo -e "运行命令`colorEcho $BLUE trojan`可进行trojan管理\n"
+        colorEcho $GREEN "安装成功!\n"
+        echo -e "已经安装成可以去二维码网站生成二维码建议用密码登录\n"
         /usr/local/bin/trojan
     else
         if [[ `cat /usr/local/etc/trojan/config.json|grep -w "\"db\""` ]];then
@@ -175,16 +175,16 @@ installTrojan(){
             /usr/local/bin/trojan upgrade config
         fi
         systemctl restart trojan-web
-        colorEcho $GREEN "更新trojan管理程序成功!\n"
+        colorEcho $GREEN "更新成功!\n"
     fi
     setupCron
-    [[ $SHOW_TIP == 1 ]] && echo "浏览器访问'`colorEcho $BLUE https://域名`'可在线trojan多用户管理"
+    [[ $SHOW_TIP == 1 ]] && echo "w已经完成处理"
 }
 
 main(){
     [[ ${HELP} == 1 ]] && help && return
     [[ ${REMOVE} == 1 ]] && removeTrojan && return
-    [[ $UPDATE == 0 ]] && echo "正在安装trojan管理程序.." || echo "正在更新trojan管理程序.."
+    [[ $UPDATE == 0 ]] && echo "正在安装.." || echo "正在更新.."
     checkSys
     [[ $UPDATE == 0 ]] && installDependent
     installTrojan
