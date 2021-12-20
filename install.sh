@@ -153,9 +153,7 @@ installTrojan(){
     chmod +x /usr/local/bin/trojan
     if [[ ! -e /etc/systemd/system/trojan-web.service ]];then
         SHOW_TIP=1
-        curl -L $SERVICE_URL -o /etc/systemd/system/trojan-web.service
-        systemctl daemon-reload
-        systemctl enable trojan-web
+
     fi
     #命令补全环境变量
     [[ -z $(grep trojan ~/.${SHELL_WAY}rc) ]] && echo "source <(trojan completion ${SHELL_WAY})" >> ~/.${SHELL_WAY}rc
