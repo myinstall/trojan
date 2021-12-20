@@ -9,7 +9,7 @@ import (
 // statusCmd represents the status command
 var statusCmd = &cobra.Command{
 	Use:   "status",
-	Short: "查看trojan状态",
+	Short: "查看状态",
 	Run: func(cmd *cobra.Command, args []string) {
 		trojan.Status(true)
 	},
