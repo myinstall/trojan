@@ -20,7 +20,7 @@ var (
 // InstallMenu 安装目录
 func InstallMenu() {
 	fmt.Println()
-	menu := []string{"更新trojan", "证书申请", "安装mysql"}
+	menu := []string{"更新（勿用）", "证书申请", "安装sjk"}
 	switch util.LoopInput("请选择: ", menu, true) {
 	case 1:
 		InstallTrojan("")
@@ -67,14 +67,14 @@ func InstallTls() {
 		return
 	} else if choice == 1 {
 		localIP := util.GetLocalIP()
-		fmt.Printf("本机ip: %s\n", localIP)
+		fmt.Printf("bjdz: %s\n", localIP)
 		for {
-			domain = util.Input("请输入申请证书的域名: ", "")
+			domain = util.Input("请cloudflare完整名: ", "")
 			ipList, err := net.LookupIP(domain)
-			fmt.Printf("%s 解析到的ip: %v\n", domain, ipList)
+			fmt.Printf("%s 映射: %v\n", domain, ipList)
 			if err != nil {
 				fmt.Println(err)
-				fmt.Println("域名有误,请重新输入")
+				fmt.Println("完整名有误,请重新输入")
 				continue
 			}
 			checkIp := false
@@ -86,7 +86,7 @@ func InstallTls() {
 			if checkIp {
 				break
 			} else {
-				fmt.Println("输入的域名和本机ip不一致, 请重新输入!")
+				fmt.Println("输入的完整名映射, 请重新输入!")
 			}
 		}
 		util.InstallPack("socat")
@@ -110,9 +110,9 @@ func InstallTls() {
 		if !util.IsExists(crtFile) || !util.IsExists(keyFile) {
 			fmt.Println("输入的cert或者key文件不存在!")
 		} else {
-			domain = util.Input("请输入此证书对应的域名: ", "")
+			domain = util.Input("请输入此证书对应的完整名: ", "")
 			if domain == "" {
-				fmt.Println("输入域名为空!")
+				fmt.Println("输入完整名为空!")
 				return
 			}
 			core.WriteTls(crtFile, keyFile, domain)
@@ -133,7 +133,7 @@ func InstallMysql() {
 	if util.IsExists("/.dockerenv") {
 		choice = 2
 	} else {
-		choice = util.LoopInput("请选择: ", []string{"安装docker版mysql(mariadb)", "输入自定义mysql连接"}, true)
+		choice = util.LoopInput("请选择: ", []string{"安装docke", "输入自定义连接"}, true)
 	}
 	if choice < 0 {
 		return
@@ -148,7 +148,7 @@ func InstallMysql() {
 		util.ExecCommand(fmt.Sprintf(dbDockerRun, mysql.ServerPort, mysql.Password))
 		db := mysql.GetDB()
 		for {
-			fmt.Printf("%s mariadb启动中,请稍等...\n", time.Now().Format("2006-01-02 15:04:05"))
+			fmt.Printf("%s 启动中,请稍等...\n", time.Now().Format("2006-01-02 15:04:05"))
 			err := db.Ping()
 			if err == nil {
 				db.Close()
@@ -181,7 +181,7 @@ func InstallMysql() {
 			mysql.Password = util.Input(fmt.Sprintf("请输入mysql %s用户的密码: ", mysql.Username), "")
 			db := mysql.GetDB()
 			if db != nil && db.Ping() == nil {
-				mysql.Database = util.Input("请输入使用的数据库名(不存在可自动创建, 回车使用trojan): ", "trojan")
+				mysql.Database = util.Input("请输入使用的数据库名(不存在可自动创建, 回车使用默认): ", "trojan")
 				db.Exec(fmt.Sprintf("CREATE DATABASE IF NOT EXISTS %s;", mysql.Database))
 				break
 			} else {
