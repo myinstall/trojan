@@ -33,7 +33,7 @@ func UserMenu() {
 func AddUser() {
 	randomUser := util.RandString(4)
 	randomPass := util.RandString(8)
-	inputUser := util.Input(fmt.Sprintf("生成随机用户名: %s, 使用直接回车, 否则输入自定义用户名: ", randomUser), randomUser)
+	inputUser := util.Input(fmt.Sprintf("生成随机用户名: %s, 使用直接回车: ", randomUser), randomUser)
 	if inputUser == "admin" {
 		fmt.Println(util.Yellow("不能新建用户名为'admin'的用户!"))
 		return
@@ -43,14 +43,14 @@ func AddUser() {
 		fmt.Println(util.Yellow("已存在用户名为: " + inputUser + " 的用户!"))
 		return
 	}
-	inputPass := util.Input(fmt.Sprintf("生成随机密码: %s, 使用直接回车, 否则输入自定义密码: ", randomPass), randomPass)
+	inputPass := util.Input(fmt.Sprintf("生成随机密码: %s, 使用直接回车: ", randomPass), randomPass)
 	base64Pass := base64.StdEncoding.EncodeToString([]byte(inputPass))
 	if user := mysql.GetUserByPass(base64Pass); user != nil {
 		fmt.Println(util.Yellow("已存在密码为: " + inputPass + " 的用户!"))
 		return
 	}
 	if mysql.CreateUser(inputUser, base64Pass, inputPass) == nil {
-		fmt.Println("新增用户成功!")
+		fmt.Println("成功!")
 	}
 }
 
