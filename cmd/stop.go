@@ -8,7 +8,7 @@ import (
 // stopCmd represents the stop command
 var stopCmd = &cobra.Command{
 	Use:   "stop",
-	Short: "停止trojan",
+	Short: "停止程序",
 	Run: func(cmd *cobra.Command, args []string) {
 		trojan.Stop()
 	},
