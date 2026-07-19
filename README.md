@@ -10,3 +10,16 @@
 ## Thanks
 感谢JetBrains提供的免费GoLand  
 [![avatar](asset/jetbrains.svg)](https://jb.gg/OpenSource)
+
+
+
+### Privacy & Telemetry
+
+To help us understand project usage and drive future improvements, this installation script includes a lightweight, completely anonymous installation counter. 
+
+Please rest assured that this script **DOES NOT** collect your server IP address, passwords, proxy configurations, or any sensitive personal data. The telemetry is strictly used to aggregate successful installation counts.
+
+If you prefer to opt out, you can easily disable this feature by setting the following environment variable before executing the install script:
+
+```bash
+export DISABLE_TELEMETRY=1
