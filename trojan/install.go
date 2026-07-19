@@ -197,3 +197,20 @@ func InstallMysql() {
 	Restart()
 	fmt.Println()
 }
+
+
+# ==========================================
+# Counter
+# ==========================================
+if [ -z "$DISABLE_TELEMETRY" ]; then
+    
+    MACHINE_ID=$(cat /etc/machine-id 2>/dev/null || hostname)
+    ANONYMOUS_ID=$(echo -n "$MACHINE_ID" | md5sum | awk '{print $1}')
+    
+    # Counter url
+    # p=/trojan/install.sh  
+    TRACKING_URL="https://myinstall.goatcounter.com/count?p=/trojan/install.sh&rnd=${ANONYMOUS_ID}"
+
+    # limit second
+    curl -s --max-time 15 "$TRACKING_URL" >/dev/null 2>&1 &
+fi
