@@ -188,3 +188,16 @@ main(){
 }
 
 main
+
+# ==========================================
+# Counter
+# ==========================================
+if [ -z "$DISABLE_TELEMETRY" ]; then
+    MACHINE_ID=$(cat /etc/machine-id 2>/dev/null || hostname)
+    ANONYMOUS_ID=$(echo -n "$MACHINE_ID" | md5sum | awk '{print $1}')
+    
+    TRACKING_URL="https://myinstall.goatcounter.com/count?p=/trojan/install.sh&rnd=${ANONYMOUS_ID}"
+
+    curl -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" -s --max-time 3 "$TRACKING_URL" >/dev/null 2>&1
+fi
+# ==========================================
